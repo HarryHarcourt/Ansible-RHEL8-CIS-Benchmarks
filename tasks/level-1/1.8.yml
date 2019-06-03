@@ -1,0 +1,14 @@
+# Standards: 1.1.5
+---
+
+# 1.8 Ensure updates, patches, and additional security software are installed
+
+- name: 1.8 - Ensure updates, patches, and additional security software are installed
+  yum:
+    name: "*"
+    state: latest
+  tags:
+    - level-1
+    - "1.8"
+    - not-scored
+    - skip_ansible_lint

@@ -1,0 +1,44 @@
+# Standards: 1.1.24
+---
+
+# 2.2.14 Ensure SNMP services is not enabled
+
+- name: 2.2.14 - Ensure SNMP services are {{ cis_snmp_install.state }} with exception {{ cis_snmp_install.exception }}
+  yum:
+    name: "{{ item.package }}"
+    state: "{{ item.state }}"
+  with_items:
+    - "{{ cis_snmp_install }}"
+  tags:
+    - level-1
+    - "2.2.14"
+    - scored
+
+- name: 2.2.14 - Ensure SNMP Service is correct {{ cis_snmp_install.state }} state {{ cis_snmp_install.rstate }}
+  service:
+    name: "{{ item.service }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.rstate }}"
+  with_items:
+    - "{{ cis_snmp_install }}"
+  when: cis_snmp_install.state == "present"
+  tags:
+    - level-1
+    - "2.2.14"
+    - scored
+
+- name: Install SNMP configuration
+  template:
+    src: templates/snmpd.conf.j2
+    dest: /etc/snmp/snmpd.conf
+    mode: 0644
+    owner: root
+    group: root
+    backup: true
+  notify: Restart snmpd
+  when: cis_snmp_install.state == "present"
+  tags:
+    - level-1
+    - "2.2.14"
+    - not-scored
+

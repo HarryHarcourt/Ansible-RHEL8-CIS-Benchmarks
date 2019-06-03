@@ -1,0 +1,35 @@
+# Standards: 0.11
+---
+
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: Restart rsyslog
+  service:
+    name: rsyslog
+    state: restarted
+
+- name: Flush ipv4 route
+  command: "sysctl -w net.ipv4.route.flush=1"
+
+- name: Restart ntpd
+  service:
+    name: ntpd
+    state: restarted
+
+- name: Restart chronyd
+  service:
+    name: chronyd
+    state: restarted
+
+- name: Restart snmpd
+  service:
+    name: snmpd
+    state: restarted
+
+- name: Restart auditd
+  service:
+    name: auditd
+    state: reloaded
