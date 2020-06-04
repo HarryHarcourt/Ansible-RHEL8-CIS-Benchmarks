@@ -8,6 +8,7 @@ cis_target_os_distribution:
   - "CentOS"
 cis_target_os_versions:
   - "8.0"
+  - "8.1"
 cis_modprobe_conf_filename: "/etc/modprobe.d/CIS.conf"
 cis_aide_database_filename: "/var/lib/aide/aide.db.gz"
 #cis_grub_bootloader_filename: "/boot/grub/menu.lst"
